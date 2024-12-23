@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             BookshelfTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Mom",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
