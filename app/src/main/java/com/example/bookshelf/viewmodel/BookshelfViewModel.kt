@@ -35,7 +35,7 @@ class BookshelfViewModel @Inject constructor(private val bookRepository: BookRep
         viewModelScope.launch {
             _uiState.value = AppUIState.Loading
             _uiState.value = try {
-                AppUIState.Success(bookRepository.getVolumes("freak+inauthor:keyes"))
+                AppUIState.Success(bookRepository.getVolumes("road+inauthor:keyes"))
             } catch (e: IOException) {
                 AppUIState.Error(msg = e.message.toString())
             } catch (e: HttpException) {
