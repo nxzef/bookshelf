@@ -2,7 +2,7 @@ package com.example.bookshelf.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bookshelf.data.model.Volumes
+import com.example.bookshelf.data.model.BookResponse
 import com.example.bookshelf.data.repository.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 sealed class AppUIState {
-    data class Success(val data: Volumes) : AppUIState()
+    data class Success(val response: BookResponse) : AppUIState()
     data object Loading : AppUIState()
     data class Error(val msg: String) : AppUIState()
 }
@@ -31,11 +31,11 @@ class BookshelfViewModel @Inject constructor(private val bookRepository: BookRep
         fetchVolumes()
     }
 
-    fun fetchVolumes() {
+    private fun fetchVolumes() {
         viewModelScope.launch {
             _uiState.value = AppUIState.Loading
             _uiState.value = try {
-                AppUIState.Success(bookRepository.getVolumes("road+inauthor:keyes"))
+                AppUIState.Success(bookRepository.getVolumes("Father"))
             } catch (e: IOException) {
                 AppUIState.Error(msg = e.message.toString())
             } catch (e: HttpException) {
